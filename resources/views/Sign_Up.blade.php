@@ -11,25 +11,29 @@
         <div class="login-form">
             <h2>Get Started with Us</h2>
             <p class="welcome-text">Register now and be part of us</p>
+
+            <form action="{{route('register.store')}}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <input type="text" placeholder="Enter username" name="username">
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" placeholder="Enter password" name="password">
+                </div>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                
+                <button class="btn-signin" type="submit">Sign up</button>
+                
+                <div class="signup-link">
+                    <p>Already have an account? <a href="#">Sign in</a></p>
+                </div>
+            </form>
             
-            <div class="input-group">
-                <input type="text" placeholder="Enter username">
-            </div>
-            
-            <div class="input-group">
-                <input type="password" placeholder="Enter password">
-            </div>
-            
-            <div class="remember-me">
-                <input type="checkbox" id="remember">
-                <label for="remember">Remember me</label>
-            </div>
-            
-            <button class="btn-signin">Sign up</button>
-            
-            <div class="signup-link">
-                <p>Already have an account? <a href="#">Sign in</a></p>
-            </div>
         </div>
         
         <div class="login-image">
