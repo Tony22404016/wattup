@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class RegisController extends Controller
 {
+    public function index()
+    {
+        $users = Regis::all(); //Ambil semua data dari model Monitor
+        $totalUser = Regis::count();
+        return view('Admin_Pannel.Admin_Pannel3', ['users'=>$users,'totalUser'=>$totalUser]);
+    }
 
     public function create(){
         return view('Sign_Up');
@@ -28,6 +34,13 @@ class RegisController extends Controller
     ]);
 
     // redirect kembali ke halaman home
-    return view('Home');
+    return view('Sign_Up');
+    }
+
+    //menghapus data pesanan
+    public function destroy($id)
+    {
+        Regis::find($id)->delete();
+        return redirect()->route('user.index');
     }
 }

@@ -49,13 +49,15 @@
             
             <div class="card">
                 <h3>Total User</h3>
-                <p>100</p>
+                <p>{{$totalUser}}</p>
             </div>
 
             <div class="add-order-container">
-                <button class="btn btn-add">
-                    <i class="fas fa-plus"></i> Add Order
-                </button>
+                <a href="/regis" style="text-decoration: none;">
+                    <button class="btn btn-add">
+                        <i class="fas fa-plus"></i> Add user
+                    </button>
+                </a>
             </div>
             
             <div class="table-container">
@@ -65,20 +67,29 @@
                             <th>User_ID</th>
                             <th>Username</th>
                             <th>Password</th>
+                            <th>Create_at</th>
+                            <th>Update_at</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($users as $user)
                         <tr>
-                            <td>01</td>
-                            <td>Junaidi</td>
-                            <td>Admin123</td>
+                            <td>{{$user->user_id}}</td>
+                            <td>{{$user->username}}</td>
+                            <td>{{$user->password}}</td>
+                            <td>{{$user->created_at}}</td>
+                            <td>{{$user->updated_at}}</td>
                             <td class="action-buttons">
-                                <button class="btn btn-call"><i class="fas fa-phone"></i> Call</button>
                                 <button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button>
-                                <button class="btn btn-delete"><i class="fas fa-trash"></i> Delete</button>
+                                <form action="{{route('user.destroy',$user->user_id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-delete" onclick = "return confirm('Yakin hapus?')"><i class="fas fa-trash"></i> Delete</button>
+                                </form>
                             </td>
                         </tr>
+                        @endforeach
                         
                     </tbody>
                 </table>
