@@ -43,22 +43,10 @@
                 <!-- Actions -->
                 <div class="flex items-center space-x-4">
                     <a href="#" class="hidden md:block text-gray-700 hover:text-wattup">
-                        <i class="fas fa-download mr-1"></i>
-                        Download
-                    </a>
-                    <a href="#" class="hidden md:block text-gray-700 hover:text-wattup">
-                        <i class="far fa-bell mr-1"></i>
-                        Notifikasi
-                    </a>
-                    <a href="#" class="hidden md:block text-gray-700 hover:text-wattup">
-                        <i class="far fa-heart mr-1"></i>
-                        Favorit
-                    </a>
-                    <a href="#" class="hidden md:block text-gray-700 hover:text-wattup">
                         <i class="fas fa-shopping-cart mr-1"></i>
                         Keranjang
                     </a>
-                    <a href="#" class="bg-wattup hover:bg-wattupDark text-white py-2 px-4 rounded-md">
+                    <a href="/login" class="bg-wattup hover:bg-wattupDark text-white py-2 px-4 rounded-md">
                         Masuk
                     </a>
                 </div>
@@ -79,7 +67,7 @@
             <!-- Location -->
             <div class="flex items-center text-gray-700">
                 <i class="fas fa-map-marker-alt mr-2 text-wattup"></i>
-                <span>Dikirim dari <b>Banjarmasin Pusat</b></span>
+                <span>Dikirim dari <b>Banjarmasin</b></span>
             </div>
         </div>
 

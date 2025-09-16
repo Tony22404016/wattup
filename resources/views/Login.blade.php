@@ -12,23 +12,27 @@
             <h2>Hallo, Wellcome Back</h2>
             <p class="welcome-text">Wellcome back to your special place</p>
             
-            <div class="input-group">
-                <input type="text" placeholder="Enter username">
-            </div>
+            <form action="{{route('login.submit')}}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Enter username">
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" name="password" placeholder="Enter password">
+                </div>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Remember me</label>
+                </div>
+                
+                <button class="btn-signin" type="submit">Sign in</button>
+            </form>
             
-            <div class="input-group">
-                <input type="password" placeholder="Enter password">
-            </div>
-            
-            <div class="remember-me">
-                <input type="checkbox" id="remember">
-                <label for="remember">Remember me</label>
-            </div>
-            
-            <button class="btn-signin">Sign in</button>
             
             <div class="signup-link">
-                <p>Don't have an account? <a href="#">Sign up</a></p>
+                <p>Don't have an account? <a href="/regis">Sign up</a></p>
             </div>
         </div>
         
