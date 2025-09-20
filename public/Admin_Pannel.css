@@ -253,6 +253,25 @@
             background: var(--primary-dark);
         }
 
+        /*status User style*/
+        .UserStatus-badge {
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: small;
+            font-size: 0.7rem;
+            text-transform: capitalize;
+        }
+
+        .UserStatus-active {
+            background-color: rgba(0, 128, 0, 0.15); /* hijau transparan */
+            color: green; /* teks hijau */
+        }
+
+        .UserStatus-nonactive {
+            background-color: rgba(255, 0, 0, 0.15); /* merah transparan */
+            color: red;
+        }
+
         /* Table Styles */
         .table-container {
             background: var(--white);

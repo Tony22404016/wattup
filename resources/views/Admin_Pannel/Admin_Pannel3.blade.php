@@ -70,7 +70,7 @@
             </div>
             <div class="stat-card">
                 <h3>Active Users</h3>
-                <p>1,248</p>
+                <p>{{$activeUser}}</p>
             </div>
             <div class="stat-card">
                 <h3>New Users (30d)</h3>
@@ -109,11 +109,11 @@
                         <td>{{$user->user_id}}</td>
                         <td>{{$user->username}}</td>
                         <td>••••••••</td>
-                        <td><span class="status-badge status-active">Active</span></td>
+                        <td><span class="UserStatus-badge {{ $user->status == 'active' ? 'UserStatus-active' : 'UserStatus-nonactive' }}">{{ $user->status }}</span></td>
                         <td>{{$user->created_at}}</td>
                         <td>{{$user->updated_at}}</td>
                         <td class="action-buttons">
-                            <button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button>
+                            <a href="{{route('user.edit', $user->user_id)}}"><button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button></a>
                             <form action="{{route('user.destroy',$user->user_id)}}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -145,37 +145,26 @@
                 }
             });
         });
-        
-        // Card hover effect
-        const cards = document.querySelectorAll('.stat-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px)';
-                card.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.1)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.boxShadow = 'var(--shadow)';
-            });
-        });
 
         // Search functionality
         const searchInput = document.querySelector('.search-box input');
-        searchInput.addEventListener('keyup', function() {
-            const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
-            
-            rows.forEach(row => {
-                const username = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                const userId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-                
-                if (username.includes(searchText) || userId.includes(searchText)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
+
+        searchInput.addEventListener('keyup', function () {
+        const text = this.value.toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const id = row.cells[0].textContent.toLowerCase();      // kolom pertama
+            const username = row.cells[1].textContent.toLowerCase(); // kolom kedua
+
+            if (id.includes(text) || username.includes(text)) {
+            row.style.display = '';
+            } else {
+            row.style.display = 'none';
+            }
         });
+        });
+
     </script>
 </body>
 </html>
