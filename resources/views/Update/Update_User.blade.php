@@ -172,8 +172,8 @@
         <div class="user-info">
             <div class="user-avatar">U</div>
             <div class="user-details">
-                <div class="user-name">User Tokopedia</div>
-                <div class="user-email">user@example.com</div>
+                <div class="user-name">User Wattup</div>
+                <div class="user-email">{{ $user->username }}</div>
             </div>
         </div>
         

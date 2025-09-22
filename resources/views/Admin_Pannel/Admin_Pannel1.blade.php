@@ -65,16 +65,16 @@
         
         <div class="stats-container">
             <div class="stat-card">
-                <h3>Total Users</h3>
-                <p>--</p>
+                <h3>Total Orders</h3>
+                <p>{{$totalOrder}}</p>
             </div>
             <div class="stat-card">
-                <h3>Active Users</h3>
-                <p>1,248</p>
+                <h3>Onprosess Orders</h3>
+                <p>{{$on_prosess}}</p>
             </div>
             <div class="stat-card">
-                <h3>New Users (30d)</h3>
-                <p>327</p>
+                <h3>Finish Orders</h3>
+                <p>{{$finish}}</p>
             </div>
         </div>
         
@@ -105,17 +105,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($Orders as $order )
                     <tr>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td>-</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>-</td>
+                        <td>{{$order->order_id}}</td>
+                        <td>{{$order->customer_name}}</td>
+                        <td>{{$order->product_name}}</td>
+                        <td>{{$order->home_address}}</td>
+                        <td>{{$order->date}}</td>
+                        <td>{{$order->whatsapp_number}}</td>
+                        <td><span>{{ $order->status }}</span></td>
+                        <td></td>
                     </tr>
-                    
+                    @endforeach
                 </tbody>
             </table>
         </div>

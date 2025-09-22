@@ -12,11 +12,17 @@ class Orders extends Model
     protected $table = 'orders';
 
     //kolom primary key (default 'id', kita sesuaikan)
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'order_id';
 
     //kolom yang bisa diisi (fillable)
     protected $fillable = [
-        'username',
-        'password',
+        'customer_name',
+        'product_name',
+        'home_address',
+        'date',
+        'whatsapp_number',
+        'status',
     ];
+
+    public $timestamps = false;
 }

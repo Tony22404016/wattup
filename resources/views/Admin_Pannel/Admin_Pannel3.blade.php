@@ -26,8 +26,10 @@
                 <span>Dashboard</span>
             </div>
             <div class="menu-item">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Order</span>
+                <a href="/orders" style="text-decoration: none;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Order</span>
+                </a>
             </div>
             <div class="menu-item">
                 <i class="fas fa-users"></i>

@@ -19,5 +19,6 @@ class Regis extends Model
     protected $fillable = [
         'username',
         'password',
+        'status',
     ];
 }

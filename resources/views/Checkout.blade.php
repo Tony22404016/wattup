@@ -15,15 +15,17 @@
             </div>
             <div class="form-container">
                 <h2 class="form-title">Checkout Pesanan</h2>
-                <form id="checkout-form">
+
+                <form action="{{route('checkout.store')}}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <label for="customer-name">Nama Customer</label>
-                        <input type="text" id="customer-name" placeholder="Masukkan nama lengkap" required>
+                        <label for="customer_name">Nama Customer</label>
+                        <input type="text" name="customer_name" placeholder="Masukkan nama lengkap" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="product-name">Nama Produk</label>
-                        <select id="product-name" required>
+                        <select name="product_name" required>
                             <option value="">Pilih produk</option>
                             <option value="laptop">Laptop Gaming - Rp 12.500.000</option>
                             <option value="smartphone">Smartphone Flagship - Rp 8.999.000</option>
@@ -35,17 +37,17 @@
                     
                     <div class="form-group">
                         <label for="address">Alamat Rumah</label>
-                        <input type="text" id="address" placeholder="Masukkan alamat lengkap" required>
+                        <input type="text" name="home_address" placeholder="Masukkan alamat lengkap" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="date">Tanggal Pengiriman</label>
-                        <input type="date" id="date" required>
+                        <input type="date" name="date" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="whatsapp">Nomor WhatsApp</label>
-                        <input type="tel" id="whatsapp" placeholder="Contoh: 081234567890" required>
+                        <input type="tel" name="whatsapp_number" placeholder="Contoh: 6281234567890" required>
                     </div>
                     
                     <button type="submit" class="btn-checkout">Proses Checkout</button>
@@ -53,17 +55,5 @@
             </div>
         </section>
     </div>
-
-    <script>
-        // Set tanggal minimum ke hari ini
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('date').setAttribute('min', today);
-        
-        // Validasi form
-        document.getElementById('checkout-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Pesanan berhasil diproses! Terima kasih telah berbelanja.');
-        });
-    </script>
 </body>
 </html>
