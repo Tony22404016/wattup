@@ -3,14 +3,11 @@
 use App\Http\Controllers\RegisController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-//rute untuk home page
-Route::get('/', function () {
-    return view('Home');
-});
-
-
+//menampilkan data produk di home page
+Route::get('/', [ProductController::class, 'home'])->name('product.home');
 
 // tampilkan form register
 Route::get('/regis', [RegisController::class, 'create'])->name('register.form');
@@ -48,6 +45,27 @@ Route::get('/checkout', [OrderController::class, 'create'])->name('checkout.form
 // kirim data user ke database
 Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 
+//menampilkan form edit status
+Route::get('/order/{id}/edit-status', [OrderController::class, 'edit'])->name('order.edit');
 
+//menghapus data user
+Route::delete('/order/{destroy}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+// Mengupdate status user
+Route::put('/order/{id}', [OrderController::class, 'update'])->name('order.update');
+
+
+//menampilkan data produk
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+
+Route::get('/addProduct', [ProductController::class, 'create'])->name('product.form');
+
+Route::post('/addProduct', [ProductController::class, 'store'])->name('product.store');
+
+Route::get('/product/{id}/edit-product', [ProductController::class, 'edit'])->name('product.edit');
+
+Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
+
+Route::delete('/product/{destroy}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 

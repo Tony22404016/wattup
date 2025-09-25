@@ -7,47 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="Admin_Pannel.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-    <div class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <!-- Sidebar Section -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">W</div>
-            <h2>WattUp Admin</h2>
-            <p class="admin-name"><i class="fas fa-user-circle"></i> {{ session('username') }}</p>
-        </div>
-        <div class="sidebar-menu">
-            <div class="menu-item active">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-shopping-cart"></i>
-                <span>Order</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-users"></i>
-                <span>Client</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-box"></i>
-                <span>Product</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </div>
-        </div>
-    </div>
-
+    
+    @extends('Layout.Slidebar')
+    @section('container')
     <!-- Main Content Section -->
     <div class="main-content">
         <div class="header">
@@ -65,102 +30,71 @@
         
         <div class="stats-container">
             <div class="stat-card">
-                <h3>Total Users</h3>
-                <p>--</p>
+                <h3>Product Quantity</h3>
+                <p>{{$product_count}}</p>
             </div>
             <div class="stat-card">
-                <h3>Active Users</h3>
-                <p>1,248</p>
+                <h3>Products In Stock</h3>
+                <p>{{$instock}}</p>
             </div>
             <div class="stat-card">
-                <h3>New Users (30d)</h3>
-                <p>327</p>
+                <h3>Products Out of Stock</h3>
+                <p>{{$outstock}}</p>
             </div>
         </div>
         
         <div class="action-bar">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search users...">
+                <input type="text" placeholder="Search Product..." id="searchInput" oninput="dataFilter()">
             </div>
-            <a href="/regis" style="text-decoration: none;">
+            <a href="/addProduct" style="text-decoration: none;">
                 <button class="btn btn-add">
-                    <i class="fas fa-plus"></i> Add User
+                    <i class="fas fa-plus"></i> Add Product
                 </button>
             </a>
         </div>
         
         <div class="table-container">
-            <table>
+            <table id="productTable">
                 <thead>
                     <tr>
                         <th>Product_ID</th>
+                        <th>Product_Image</th>
                         <th>Product_Name</th>
                         <th>Product_Price</th>
-                        <th>city</th>
+                        <th>Product_Stock</th>
+                        <th>City</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
+                    @foreach ($products as $product )
+                    <tr>
+                        <td>{{$product->product_id}}</td>
+                        <td>
+                            <img class="h-10 w-10 rounded-full" src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Product Image">
+                        </td>
+                        <td>{{$product->product_name}}</td>
+                        <td>Rp{{ number_format($product->product_price, 0, ',' ,'.')}}</td>
+                        <td>{{$product->product_stock}}</td>
+                        <td>{{$product->product_location}}</td>
+                        <td>
+                            <a href="{{route('product.edit', $product->product_id)}}"><button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button></a>
+                            <form action="{{route('product.destroy',$product->product_id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-delete" onclick = "return confirm('Yakin hapus?')"><i class="fas fa-trash"></i> Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    @endsection
 
-    <script>
-        // Toggle sidebar on mobile
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('show');
-        });
-
-        // Menu item active state
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Close sidebar on mobile after selection
-                if (window.innerWidth <= 576) {
-                    document.getElementById('sidebar').classList.remove('show');
-                }
-            });
-        });
-        
-        // Card hover effect
-        const cards = document.querySelectorAll('.stat-card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px)';
-                card.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.1)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.boxShadow = 'var(--shadow)';
-            });
-        });
-
-        // Search functionality
-        const searchInput = document.querySelector('.search-box input');
-        searchInput.addEventListener('keyup', function() {
-            const searchText = this.value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
-            
-            rows.forEach(row => {
-                const username = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
-                const userId = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
-                
-                if (username.includes(searchText) || userId.includes(searchText)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    </script>
+    <script src="Admin_pannel.js"></script>
 </body>
 </html>

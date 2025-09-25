@@ -38,4 +38,23 @@ class OrderController extends Controller
         // redirect kembali ke halaman home
         return redirect()->route('checkout.form')->with('success', 'Pesanan berhasil dibuat!');
     }
+
+    //menampilkan form update status user
+    public function edit($id)
+    {
+        $order = Orders::find($id);
+        return view('Update.Update_Order', compact('order'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status'=>'required',
+        ]);
+
+        Orders::find($id)->update($request->all());
+        return redirect()->route('order.index'); //Arahkan ulang (redirect) pengguna ke URL barang.index".
+    }
+
+
 }

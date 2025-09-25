@@ -9,47 +9,8 @@
     <link rel="stylesheet" href="Admin_Pannel.css">
 </head>
 <body>
-    <div class="menu-toggle" id="menuToggle">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <!-- Sidebar Section -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="logo">W</div>
-            <h2>WattUp Admin</h2>
-            <p class="admin-name"><i class="fas fa-user-circle"></i> {{ session('username') }}</p>
-        </div>
-        <div class="sidebar-menu">
-            <div class="menu-item active">
-                <i class="fas fa-chart-line"></i>
-                <span>Dashboard</span>
-            </div>
-            <div class="menu-item">
-                <a href="/orders" style="text-decoration: none;">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Order</span>
-                </a>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-users"></i>
-                <span>Client</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-box"></i>
-                <span>Product</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-            </div>
-            <div class="menu-item">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Logout</span>
-            </div>
-        </div>
-    </div>
-
+    @extends('Layout.Slidebar')
+    @section('container')
     <!-- Main Content Section -->
     <div class="main-content">
         <div class="header">
@@ -75,15 +36,15 @@
                 <p>{{$activeUser}}</p>
             </div>
             <div class="stat-card">
-                <h3>New Users (30d)</h3>
-                <p>327</p>
+                <h3>Non-active User</h3>
+                <p>{{$nonactiveuser}}</p>
             </div>
         </div>
         
         <div class="action-bar">
             <div class="search-box">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search users...">
+                <input type="text" placeholder="Search users..." id="searchInput" oninput="dataFilter()">
             </div>
             <a href="/regis" style="text-decoration: none;">
                 <button class="btn btn-add">
@@ -93,7 +54,7 @@
         </div>
         
         <div class="table-container">
-            <table>
+            <table id="productTable" >
                 <thead>
                     <tr>
                         <th>User_ID</th>
@@ -128,45 +89,8 @@
             </table>
         </div>
     </div>
+    @endsection
 
-    <script>
-        // Toggle sidebar on mobile
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('show');
-        });
-
-        // Menu item active state
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-                
-                // Close sidebar on mobile after selection
-                if (window.innerWidth <= 576) {
-                    document.getElementById('sidebar').classList.remove('show');
-                }
-            });
-        });
-
-        // Search functionality
-        const searchInput = document.querySelector('.search-box input');
-
-        searchInput.addEventListener('keyup', function () {
-        const text = this.value.toLowerCase();
-        const rows = document.querySelectorAll('tbody tr');
-
-        rows.forEach(row => {
-            const id = row.cells[0].textContent.toLowerCase();      // kolom pertama
-            const username = row.cells[1].textContent.toLowerCase(); // kolom kedua
-
-            if (id.includes(text) || username.includes(text)) {
-            row.style.display = '';
-            } else {
-            row.style.display = 'none';
-            }
-        });
-        });
-
-    </script>
+    <script src="Admin_pannel.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
             --primary-light: #e8f5e9;
             --secondary: #f8f9fa;
             --text: #202124;
-            --text-light: #5f6368;
+            --text-light: #333;
             --border: #dadce0;
             --success: #34a853;
             --warning: #f9ab00;
@@ -321,8 +321,8 @@
         }
 
         .btn-edit {
-            background: var(--warning);
-            color: white;
+            background: #fff;
+            color: green;
             padding: 8px 12px;
             font-size: 13px;
         }
@@ -332,8 +332,8 @@
         }
 
         .btn-delete {
-            background: var(--danger);
-            color: white;
+            background: #fff;
+            color: rgb(255, 0, 0);
             padding: 8px 12px;
             font-size: 13px;
         }

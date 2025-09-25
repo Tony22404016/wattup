@@ -13,104 +13,45 @@
         </div>
         
         <div class="form-container">
-            <form id="productForm">
+            <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="form-group">
                     <label for="productImage">Gambar Produk</label>
-                    <div class="image-preview" id="imagePreview">
-                        <img src="" alt="Preview Gambar" id="preview">
-                        <span id="previewText">Pratinjau gambar akan muncul di sini</span>
-                    </div>
-                    <input type="file" id="productImage" class="form-control" accept="image/*">
+                    <input type="file" name="product_image" id="productImage" class="form-control" accept="image/*">
                     <p class="input-hint">Format: JPG, PNG, GIF. Maksimal 2MB</p>
                 </div>
                 
                 <div class="form-group">
                     <label for="productName">Nama Produk</label>
-                    <input type="text" id="productName" class="form-control" placeholder="Masukkan nama produk" required>
+                    <input type="text" name="product_name" id="productName" class="form-control" placeholder="Masukkan nama produk" value="{{ old('product_name') }}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="productPrice">Harga Produk</label>
-                    <input type="number" id="productPrice" class="form-control" placeholder="Masukkan harga produk" min="0" required>
+                    <input type="number" name="product_price" id="productPrice" class="form-control" placeholder="Masukkan harga produk" min="0" step="0.01" value="{{ old('product_price') }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productStock">Stok Produk</label>
+                    <input type="number" name="product_stock" id="productStock" class="form-control" placeholder="Masukkan stok produk" min="0" value="{{ old('product_stock') }}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="city">Kota</label>
-                    <select id="city" class="form-control" required>
+                    <select name="product_location" id="city" class="form-control" required>
                         <option value="">Pilih kota</option>
-                        <option value="jakarta">Jakarta</option>
-                        <option value="bandung">Bandung</option>
-                        <option value="surabaya">Surabaya</option>
-                        <option value="yogyakarta">Yogyakarta</option>
-                        <option value="medan">Medan</option>
-                        <option value="semarang">Semarang</option>
-                        <option value="makassar">Makassar</option>
-                        <option value="denpasar">Denpasar</option>
+                        <option value="Banjarmasin">Banjarmasin</option>
+                        <option value="Banjarbaru">Banjarbaru</option>
+                        <option value="Barito Kuala">Barito Kuala</option>
+                        <option value="Marabahan">Marabahan</option>
+                        <option value="Kapuas">Kapuas</option>
+                        <option value="Pulang Pisau">Pulang Pisau</option>
+                        <option value="Palangkaraya">Palangkaraya</option>
                     </select>
                 </div>
-                
                 <button type="submit" class="btn">Simpan Produk</button>
             </form>
         </div>
     </div>
-
-    <script>
-        // JavaScript untuk preview gambar
-        const productImage = document.getElementById('productImage');
-        const preview = document.getElementById('preview');
-        const previewText = document.getElementById('previewText');
-        
-        productImage.addEventListener('change', function() {
-            const file = this.files[0];
-            
-            if (file) {
-                const reader = new FileReader();
-                
-                previewText.style.display = "none";
-                preview.style.display = "block";
-                
-                reader.addEventListener("load", function() {
-                    preview.setAttribute("src", this.result);
-                });
-                
-                reader.readAsDataURL(file);
-            } else {
-                previewText.style.display = "block";
-                preview.style.display = "none";
-                preview.setAttribute("src", "");
-            }
-        });
-        
-        // Validasi form
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validasi sederhana
-            const productName = document.getElementById('productName').value;
-            const productPrice = document.getElementById('productPrice').value;
-            const city = document.getElementById('city').value;
-            
-            if (!productName || !productPrice || !city) {
-                alert('Harap isi semua field yang wajib diisi!');
-                return;
-            }
-            
-            // Jika validasi berhasil, tampilkan data di console
-            const formData = {
-                productImage: productImage.files[0] ? productImage.files[0].name : 'Tidak ada gambar',
-                productName: productName,
-                productPrice: productPrice,
-                city: city
-            };
-            
-            console.log('Data Produk:', formData);
-            alert('Produk berhasil disimpan!');
-            
-            // Reset form setelah submit (opsional)
-            this.reset();
-            previewText.style.display = "block";
-            preview.style.display = "none";
-        });
-    </script>
 </body>
 </html>

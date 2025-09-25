@@ -14,11 +14,13 @@ class RegisController extends Controller
         $users = Regis::all(); //Ambil semua data dari model Monitor
         $totalUser = Regis::count();
         $activeUser = Regis::where('status', 'active')->count();
+        $nonActiveUser = Regis::where('status', 'non_active')->count();
         
         return view('Admin_Pannel.Admin_Pannel3', [
             'users'=>$users,
             'totalUser'=>$totalUser,
-            'activeUser'=>$activeUser
+            'activeUser'=>$activeUser,
+            'nonactiveuser'=>$nonActiveUser
         ]);
     }
 

@@ -171,20 +171,24 @@
         <h2 class="text-xl font-bold mb-4">Produk Paling Dicari</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <!-- Product Card -->
+
+            @foreach ($products as $product)
             <div class="bg-white rounded-lg shadow overflow-hidden">
-                <img src="asset/Sepeda_Listrik.png" alt="Sepeda Listrik" class="w-full">
+                <a href="/checkout"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
                 <div class="p-3">
-                    <h3 class="text-sm font-medium mb-2 line-clamp-2">SEPEDA LISTRIK E-BIKE PREMIUM TRON X-2 / TRON X2 E BIKE SNI BERGARANSI</h3>
-                    <p class="text-wattup font-bold">Rp3.542.500</p>
+                    <h3 class="text-sm font-medium mb-2 line-clamp-2">{{$product->product_name}}</h3>
+                    <p class="text-wattup font-bold">Rp {{ number_format($product->product_price, 0, ',' ,'.')}}</p>
                     <div class="flex items-center mt-1">
                         <div class="flex text-yellow-400">
                             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                         </div>
                         <span class="text-xs text-gray-500 ml-1">(1,234)</span>
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">Banjarmasin</p>
+                    <p class="text-xs text-gray-500 mt-1">{{$product->product_location}}</p>
                 </div>
             </div>
+            @endforeach
+
         </div>
     </section>
 
