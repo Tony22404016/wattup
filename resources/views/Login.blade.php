@@ -9,17 +9,20 @@
 <body>
     <section class="container">
         <div class="login-form">
+            @if ($errors->has('login_error'))
+                <p style="color:red;">{{ $errors->first('login_error') }}</p>
+            @endif
             <h2>Hallo, Wellcome Back</h2>
             <p class="welcome-text">Wellcome back to your special place</p>
             
             <form action="{{route('login.submit')}}" method="POST">
                 @csrf
                 <div class="input-group">
-                    <input type="text" name="username" placeholder="Enter username">
+                    <input type="text" name="username" placeholder="Enter username" required>
                 </div>
                 
                 <div class="input-group">
-                    <input type="password" name="password" placeholder="Enter password">
+                    <input type="password" name="password" placeholder="Enter password" required>
                 </div>
                 
                 <div class="remember-me">

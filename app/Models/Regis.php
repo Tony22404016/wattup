@@ -2,23 +2,30 @@
 
 namespace App\Models;
 
+// Impor trait yang diperlukan untuk Otentikasi
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; // Import base class User
+use Illuminate\Notifications\Notifiable;
 
-class Regis extends Model
+// Ganti 'Model' dengan 'Authenticatable' agar Model ini bisa digunakan untuk Login
+class Regis extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable; 
 
-    //nama tabel yang sudah ada di database
+    // Nama tabel yang sudah ada di database
     protected $table = 'users';
 
-    //kolom primary key (default 'id', kita sesuaikan)
+    // Kolom primary key (default 'id', kita sesuaikan)
     protected $primaryKey = 'user_id';
 
-    //kolom yang bisa diisi (fillable)
+    // Kolom yang bisa diisi (fillable)
     protected $fillable = [
         'username',
         'password',
         'status',
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 }

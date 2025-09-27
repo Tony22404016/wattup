@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'Regis',
     ],
 
     /*
@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'Regis',
         ],
     ],
 
@@ -64,6 +64,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+
+        'Regis' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Regis::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',

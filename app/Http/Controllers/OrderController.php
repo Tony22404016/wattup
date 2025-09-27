@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Orders;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -18,7 +19,8 @@ class OrderController extends Controller
 
     //menampilkan form tambah user
     public function create(){
-        return view('Checkout');
+        $products = Product::all(); // ambil semua produk
+        return view('Checkout', compact('products')); 
     }
 
     //mengirim data order

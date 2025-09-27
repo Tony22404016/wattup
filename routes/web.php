@@ -9,54 +9,40 @@ use Illuminate\Support\Facades\Route;
 //menampilkan data produk di home page
 Route::get('/', [ProductController::class, 'home'])->name('product.home');
 
-// tampilkan form register
+// data user
 Route::get('/regis', [RegisController::class, 'create'])->name('register.form');
 
-// kirim data user ke database
 Route::post('/regis', [RegisController::class, 'store'])->name('register.store');
 
-//menampilkan data user
-Route::get('/users', [RegisController::class, 'index'])->name('user.index');
-
-//menghapus data user
 Route::delete('/user/{destroy}', [RegisController::class, 'destroy'])->name('user.destroy');
 
-//menampilkan form edit status
 Route::get('/user/{id}/edit-status', [RegisController::class, 'edit'])->name('user.edit');
 
-// Mengupdate status user
 Route::put('/user/{id}', [RegisController::class, 'update'])->name('user.update');
 
 
 
 //menampilkan form login user
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 
 //mengirim data login user
-Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit')->middleware('guest');
 
 
-//menampilkan data order
-Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+//data order
 
-//menampilkan form checkout
 Route::get('/checkout', [OrderController::class, 'create'])->name('checkout.form');
 
-// kirim data user ke database
 Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
 
-//menampilkan form edit status
 Route::get('/order/{id}/edit-status', [OrderController::class, 'edit'])->name('order.edit');
 
-//menghapus data user
 Route::delete('/order/{destroy}', [OrderController::class, 'destroy'])->name('order.destroy');
 
-// Mengupdate status user
 Route::put('/order/{id}', [OrderController::class, 'update'])->name('order.update');
 
 
-//menampilkan data produk
-Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+//data produk
 
 Route::get('/addProduct', [ProductController::class, 'create'])->name('product.form');
 
@@ -67,5 +53,13 @@ Route::get('/product/{id}/edit-product', [ProductController::class, 'edit'])->na
 Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 
 Route::delete('/product/{destroy}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+
+//autentikasi route
+Route::middleware(['auth'])->group(function () { 
+    Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/users', [RegisController::class, 'index'])->name('user.index');
+});
 
 

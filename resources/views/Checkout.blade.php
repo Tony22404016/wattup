@@ -27,11 +27,9 @@
                         <label for="product-name">Nama Produk</label>
                         <select name="product_name" required>
                             <option value="">Pilih produk</option>
-                            <option value="laptop">Laptop Gaming - Rp 12.500.000</option>
-                            <option value="smartphone">Smartphone Flagship - Rp 8.999.000</option>
-                            <option value="headphone">Headphone Wireless - Rp 1.499.000</option>
-                            <option value="keyboard">Mechanical Keyboard - Rp 899.000</option>
-                            <option value="monitor">Monitor 27 inch - Rp 3.750.000</option>
+                        @foreach ($products as $product)
+                            <option value="{{$product->product_name}}">{{$product->product_name}}</option>
+                        @endforeach  
                         </select>
                     </div>
                     

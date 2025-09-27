@@ -27,16 +27,17 @@
             <div class="container mx-auto px-4 py-2 flex items-center justify-between">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="#" class="text-wattup font-bold text-2xl">Wattup</a>
+                    <img src="asset/Logo.png" alt="" alt="Logo" class="h-10 w-auto md:h-12">
                 </div>
 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-1 mx-4 max-w-2xl">
                     <div class="relative w-full">
-                        <input type="text" placeholder="Cari di Wattup" class="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-wattup">
+                        <input type="text" placeholder="Cari di Wattup" id="searchInput" oninput="filterProducts()" class="w-full py-2 px-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-wattup">
                         <button class="absolute right-0 top-0 h-full bg-wattup text-white px-4 rounded-r-md">
                             <i class="fas fa-search"></i>
                         </button>
+                        <script src="home.js"></script>
                     </div>
                 </div>
 
@@ -173,10 +174,10 @@
             <!-- Product Card -->
 
             @foreach ($products as $product)
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="product-card bg-white rounded-lg shadow overflow-hidden">
                 <a href="/checkout"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
                 <div class="p-3">
-                    <h3 class="text-sm font-medium mb-2 line-clamp-2">{{$product->product_name}}</h3>
+                    <h3 class="product-name || text-sm font-medium mb-2 line-clamp-2">{{$product->product_name}}</h3>
                     <p class="text-wattup font-bold">Rp {{ number_format($product->product_price, 0, ',' ,'.')}}</p>
                     <div class="flex items-center mt-1">
                         <div class="flex text-yellow-400">
