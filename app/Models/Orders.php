@@ -8,21 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Orders extends Model
 {
     use HasFactory;
-    //nama tabel yang sudah ada di database
-    protected $table = 'orders';
 
-    //kolom primary key (default 'id', kita sesuaikan)
+    protected $table = 'orders';
     protected $primaryKey = 'order_id';
 
-    //kolom yang bisa diisi (fillable)
     protected $fillable = [
-        'customer_name',
-        'product_name',
+        'user_id',
+        'product_id',
         'home_address',
         'date',
         'whatsapp_number',
         'status',
     ];
 
-    public $timestamps = false;
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'product_id');
+    }
 }

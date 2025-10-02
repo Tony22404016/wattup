@@ -26,7 +26,7 @@ class RegisController extends Controller
 
     //menampilkan form tambah user
     public function create(){
-        return view('Sign_Up');
+        return view('User_Login.Sign_Up');
     }
 
     //mengirim data user
@@ -45,7 +45,7 @@ class RegisController extends Controller
         ]);
 
         // redirect kembali ke halaman home
-        return view('Login');
+        return view('User_Login.Login');
     }
 
     //menghapus data pesanan

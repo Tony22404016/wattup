@@ -47,11 +47,6 @@
                 <i class="fas fa-search"></i>
                 <input type="text" placeholder="Search orders..." id="searchInput" oninput="dataFilter()">
             </div>
-            <a href="/checkout" style="text-decoration: none;">
-                <button class="btn btn-add">
-                    <i class="fas fa-plus"></i> Add Orders
-                </button>
-            </a>
         </div>
         
         <div class="table-container">
@@ -71,20 +66,25 @@
                 <tbody>
                     @foreach ($Orders as $order )
                     <tr>
-                        <td>{{$order->order_id}}</td>
-                        <td>{{$order->customer_name}}</td>
-                        <td>{{$order->product_name}}</td>
-                        <td>{{$order->home_address}}</td>
-                        <td>{{$order->date}}</td>
-                        <td>{{$order->whatsapp_number}}</td>
+                        <td>{{ $order->order_id }}</td>
+                        <td>{{ $order->user->username ?? 'N/A' }}</td>
+                        <td>{{ $order->product->product_name ?? 'N/A' }}</td>
+                        <td>{{ $order->home_address }}</td>
+                        <td>{{ $order->date }}</td>
+                        <td>{{ $order->whatsapp_number }}</td>
                         <td><span>{{ $order->status }}</span></td>
                         <td>
-                            <a href="{{route('order.edit', $order->order_id)}}"><button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button></a>
-                            <form action="{{route('order.destroy',$order->order_id)}}" method="POST">
+                            <a href="{{ route('order.edit', $order->order_id) }}">
+                                <button class="btn btn-edit"><i class="fas fa-edit"></i> Edit</button>
+                            </a>
+                            <form action="{{ route('order.destroy',$order->order_id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-delete" onclick = "return confirm('Yakin hapus?')"><i class="fas fa-trash"></i> Delete</button>
-                            </form></td>
+                                <button class="btn btn-delete" onclick="return confirm('Yakin hapus?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

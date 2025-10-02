@@ -47,9 +47,15 @@
                         <i class="fas fa-shopping-cart mr-1"></i>
                         Keranjang
                     </a>
+                    @guest
                     <a href="/login" class="bg-wattup hover:bg-wattupDark text-white py-2 px-4 rounded-md">
                         Masuk
                     </a>
+                    @endguest
+
+                    @auth
+                        <span class="font-semibold">{{ Auth::user()->username }}</span>
+                    @endauth
                 </div>
             </div>
         </div>
@@ -175,7 +181,7 @@
 
             @foreach ($products as $product)
             <div class="product-card bg-white rounded-lg shadow overflow-hidden">
-                <a href="/checkout"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
+                <a href="{{ route('checkout.form', $product->product_id) }}"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
                 <div class="p-3">
                     <h3 class="product-name || text-sm font-medium mb-2 line-clamp-2">{{$product->product_name}}</h3>
                     <p class="text-wattup font-bold">Rp {{ number_format($product->product_price, 0, ',' ,'.')}}</p>

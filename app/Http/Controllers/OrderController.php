@@ -10,35 +10,41 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $Orders = Orders::all(); //Ambil semua data dari model Monitor
+        $Orders = Orders::with(['user', 'product'])->get();
         $totalOrder = Orders::count();
         $on_prosess = Orders::where('status', 'diproses')->count();
         $finish = Orders::where('status', 'selesai')->count();
-        return view('Admin_Pannel.Admin_Pannel1', ['Orders'=>$Orders,'totalOrder'=>$totalOrder, 'on_prosess'  => $on_prosess, 'finish'  => $finish]);
+
+        return view('Admin_Pannel.Admin_Pannel1', [
+            'Orders' => $Orders,
+            'totalOrder' => $totalOrder,
+            'on_prosess' => $on_prosess,
+            'finish' => $finish
+        ]);
     }
 
-    //menampilkan form tambah user
-    public function create(){
-        $products = Product::all(); // ambil semua produk
-        return view('Checkout', compact('products')); 
+    public function create($id)
+    {
+        $product = Product::find($id);
+        return view('Checkout', compact('product')); 
     }
 
-    //mengirim data order
     public function store(Request $request)
     {
-       $validated = $request->validate([
-        'customer_name'   => 'required|string|max:255',
-        'product_name'    => 'required|string|max:255',
-        'home_address'    => 'required|string',
-        'date'            => 'required|date',
-        'whatsapp_number' => 'required|string',
-    ]);
+        $validated = $request->validate([
+            'product_id'      => 'required|exists:products,product_id',
+            'home_address'    => 'required|string|max:255',
+            'date'            => 'required|date',
+            'whatsapp_number' => 'required|string|max:15',
+        ]);
 
-        // simpan ke database (hash password dulu)
+        // otomatis ambil user login
+        $validated['user_id'] = auth()->id(); 
+
         Orders::create($validated);
 
-        // redirect kembali ke halaman home
-        return redirect()->route('checkout.form')->with('success', 'Pesanan berhasil dibuat!');
+        return redirect()->route('checkout.form', ['id' => $validated['product_id']])
+                 ->with('success', 'Pesanan berhasil dibuat!');
     }
 
     //menampilkan form update status user
@@ -56,6 +62,12 @@ class OrderController extends Controller
 
         Orders::find($id)->update($request->all());
         return redirect()->route('order.index'); //Arahkan ulang (redirect) pengguna ke URL barang.index".
+    }
+
+    public function destroy($id)
+    {
+        Orders::find($id)->delete();
+        return redirect()->route('order.index');
     }
 
 

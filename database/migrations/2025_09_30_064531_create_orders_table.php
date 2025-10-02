@@ -6,25 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');
-            $table->string('customer_name');
-            $table->string('product_name');
+
+            // Relasi ke users
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+
+            // Relasi ke products
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
+
             $table->string('home_address');
-            $table->string('date');
+            $table->date('date');
             $table->string('whatsapp_number');
             $table->string('status')->default('diproses');
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('orders');

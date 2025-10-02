@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'Regis',
         ],
+
+        'admin' => [ // ini untuk admin
+            'driver' => 'session',
+            'provider' => 'Admin',
+        ],
     ],
 
     /*
@@ -68,6 +73,11 @@ return [
         'Regis' => [
             'driver' => 'eloquent',
             'model' => App\Models\Regis::class,
+        ],
+
+        'Admin'=>[
+            'driver' => 'eloquent',
+                        'model' => App\Models\Admin::class,
         ],
 
 

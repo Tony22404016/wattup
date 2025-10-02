@@ -6,27 +6,28 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class LoginAdminController extends Controller
 {
     // tampilkan halaman login
     public function showLoginForm()
     {
         // Pastikan view 'login' ada di folder resources/views/
-        return view('User_Login.Login'); 
+        return view('Admin_Login.AdminLogin'); 
     }
 
     // proses login
     public function login(Request $request)
     {
         $credentials = $request->validate([
-            'username'=>'required | string',
+            'name'=>'required | string',
+            'email'=>'required | string',
             'password'=>'required'
         ]);
 
-        if(Auth::guard('web')->attempt($credentials)){
+        if(Auth::guard('admin')->attempt($credentials)){
 
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/users');
         }
 
         return back()->withErrors([

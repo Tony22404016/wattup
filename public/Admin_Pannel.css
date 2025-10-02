@@ -28,6 +28,12 @@
             min-height: 100vh;
         }
 
+        button{
+            border: none;
+            background-color: #fff;
+            color: #333;
+        }
+
         /* Sidebar Styles */
         .sidebar {
             width: 260px;

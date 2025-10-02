@@ -9,8 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $table = 'product';
-
+    protected $table = 'products';
     protected $primaryKey = 'product_id';
 
     protected $fillable = [
@@ -21,5 +20,8 @@ class Product extends Model
         'product_location',
     ];
 
-    public $timestamps = false;
+    public function orders()
+    {
+        return $this->hasMany(Orders::class, 'product_id', 'product_id');
+    }
 }
