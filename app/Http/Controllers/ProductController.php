@@ -33,9 +33,10 @@ class ProductController extends Controller
         $request->validate([
             'product_image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'product_name' => 'required',
+            'product_description' => 'required',
             'product_price' => 'required',
             'product_stock' => 'required',
-            'product_location' => 'required', // kalau VARCHAR
+            'product_location' => 'required',
         ]);
 
         $fileName = time() . '.' . $request->product_image->extension();
@@ -43,14 +44,15 @@ class ProductController extends Controller
 
         // Simpan ke database harus kaya gini biar gambarnya jalan
         Product::create([
-            'product_image'     => $fileName, // simpan nama file, bukan object
-            'product_name'      => $request->product_name,
-            'product_price'     => $request->product_price,
-            'product_stock'     => $request->product_stock,
-            'product_location'  => $request->product_location, 
+            'product_image'         => $fileName, // simpan nama file, bukan object
+            'product_name'          => $request->product_name,
+            'product_description'   => $request->product_description,
+            'product_price'         => $request->product_price,
+            'product_stock'         => $request->product_stock,
+            'product_location'      => $request->product_location, 
         ]);
 
-        return redirect()->route('product.index')->with('success', 'Project berhasil ditambahkan!');
+        return redirect()->route('product.index');
     }
 
     public function edit($id)
@@ -100,4 +102,10 @@ class ProductController extends Controller
         Product::find($id)->delete();
         return redirect()->route('product.index');
     }
+
+    public function detail($id)
+{
+    $product = Product::findOrFail($id); // cari berdasarkan primaryKey (product_id)
+    return view('Detail_Product', compact('product'));
+}
 }

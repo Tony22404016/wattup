@@ -181,7 +181,7 @@
 
             @foreach ($products as $product)
             <div class="product-card bg-white rounded-lg shadow overflow-hidden">
-                <a href="{{ route('checkout.form', $product->product_id) }}"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
+                <a href="{{ route('product.detail', $product->product_id) }}"><img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Sepeda Listrik" class="w-full"></a>
                 <div class="p-3">
                     <h3 class="product-name || text-sm font-medium mb-2 line-clamp-2">{{$product->product_name}}</h3>
                     <p class="text-wattup font-bold">Rp {{ number_format($product->product_price, 0, ',' ,'.')}}</p>

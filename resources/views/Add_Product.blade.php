@@ -25,6 +25,11 @@
                     <label for="productName">Nama Produk</label>
                     <input type="text" name="product_name" id="productName" class="form-control" placeholder="Masukkan nama produk" value="{{ old('product_name') }}" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="productName">Deskripsi Produk</label>
+                    <input type="text" name="product_description" id="productDescription" class="form-control" placeholder="Masukkan deskripsi produk" value="{{ old('product_description') }}" required>
+                </div>
                 
                 <div class="form-group">
                     <label for="productPrice">Harga Produk</label>

@@ -27,8 +27,8 @@
                 <a href="/product" style="text-decoration: none; color:#333"><span>Product</span></a>
             </div>
             <div class="menu-item">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
+                <i class="fas fa-users-cog"></i>
+                 <a href="/admins" style="text-decoration: none; color:#333"><span>Admin</span></a>
             </div>
             <div class="menu-item">
                 <i class="fas fa-sign-out-alt"></i>

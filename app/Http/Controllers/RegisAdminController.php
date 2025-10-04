@@ -9,6 +9,18 @@ use Illuminate\Http\Request;
 
 class RegisAdminController extends Controller
 {
+
+    public function index()
+    {
+        $admins = Admin::all(); //Ambil semua data dari model Monitor
+        $totalAdmin = Admin::count();
+        
+        return view('Admin_Pannel.Admin_Pannel4', [
+            'admins'=>$admins,
+            'totalAdmin'=>$totalAdmin
+        ]);
+    }
+
     //menampilkan form tambah user
     public function create(){
         return view('Admin_Login.AdminRegis');
@@ -33,5 +45,11 @@ class RegisAdminController extends Controller
 
         // redirect kembali ke halaman home
         return redirect(route('user.index'));
+    }
+
+    public function destroy($id)
+    {
+        Admin::find($id)->delete();
+        return redirect()->route('admin.index');
     }
 }

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 //menampilkan data produk di home page
 Route::get('/', [ProductController::class, 'home'])->name('product.home');
+Route::get('/detail/{id}', [ProductController::class, 'detail'])->name('product.detail');
 
 // data user
 Route::delete('/user/{destroy}', [RegisController::class, 'destroy'])->name('user.destroy');
@@ -30,9 +31,11 @@ Route::post('/Admin/Regis', [RegisAdminController::class, 'store'])->name('Admin
 Route::get('/Admin/Login', [LoginAdminController::class, 'showLoginForm'])->name('LoginAdmin');
 Route::post('/Admin/Login', [LoginAdminController::class, 'login'])->name('LoginAdmin.submit');
 
+//data Admin
+Route::delete('/admin/{destroy}', [RegisAdminController::class, 'destroy'])->name('admin.destroy');
+
 
 //data order
-Route::get('/checkout/{id}', [OrderController::class, 'create'])->name('checkout.form');
 Route::get('/order/{id}/edit-status', [OrderController::class, 'edit'])->name('order.edit');
 Route::delete('/order/{destroy}', [OrderController::class, 'destroy'])->name('order.destroy');
 Route::put('/order/{id}', [OrderController::class, 'update'])->name('order.update');
@@ -49,12 +52,14 @@ Route::delete('/product/{destroy}', [ProductController::class, 'destroy'])->name
 //autentikasi route
 Route::middleware(['auth:web'])->group(function () { 
     Route::post('/checkout', [OrderController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/{id}', [OrderController::class, 'create'])->name('checkout.form');
 });
 
 Route::middleware('auth:admin')->group(function () {
     Route::get('/product', [ProductController::class, 'index'])->name('product.index');
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/users', [RegisController::class, 'index'])->name('user.index');
+    Route::get('/admins', [RegisAdminController::class, 'index'])->name('admin.index');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
